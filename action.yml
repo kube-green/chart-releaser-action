@@ -81,7 +81,7 @@ runs:
         fi
         repo=$(cut -d '/' -f 2 <<< "$GITHUB_REPOSITORY")
         if [[ -n "${{ inputs.repo }}" ]]; then
-          owners=${{ inputs.repo }}
+          repo=${{ inputs.repo }}
         fi
 
         args=(--owner "$owner" --repo "$repo")
