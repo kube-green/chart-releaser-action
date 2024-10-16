@@ -62,6 +62,9 @@ inputs:
   repo:
     description: "Repository where to push the index and artifacts"
     required: false
+  commit:
+    description: "Commit SHA or branch to use for the release"
+    required: false
 outputs:
   changed_charts:
     description: "A comma-separated list of charts that were released on this run. Will be an empty string if no updates were detected, will be unset if `--skip_packaging` is used: in the latter case your custom packaging step is responsible for setting its own outputs if you need them."
@@ -131,6 +134,12 @@ runs:
         if [[ -n "${{ inputs.pages_branch }}" ]]; then
             args+=(--pages-branch "${{ inputs.pages_branch }}")
         fi
+
+        commit=$(git rev-parse HEAD)
+        if [[ -n "${{ inputs.commit }}" ]]; then
+            args+=(--commit "${{ inputs.commit }}")
+        fi
+        args+=(--commit "$commit")
 
         "$GITHUB_ACTION_PATH/cr.sh" "${args[@]}"
 
