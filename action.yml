@@ -137,7 +137,7 @@ runs:
 
         commit=$(git rev-parse HEAD)
         if [[ -n "${{ inputs.commit }}" ]]; then
-            args+=(--commit "${{ inputs.commit }}")
+            commit=${{ inputs.commit }}
         fi
         args+=(--commit "$commit")
 
